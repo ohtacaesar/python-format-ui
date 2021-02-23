@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf8">
+  <title>python-format-ui</title>
+  <style>
+    th {
+      text-align: left;
+      padding-right: 8px;
+    }
+  </style>
+</head>
+
+<body>
+<div>
+  <h2><a href="/">python-format-ui</a></h2>
+  {% if error %}<p style="border: 1px solid red; padding: 4px">{{ error }}</p>{% endif %}
+  <form method="post">
+    <button>POST</button>
+    <div style="display: flex; justify-content: space-between">
+      <div style="width: 50vw; border-right: 1px solid #ccc; padding-right: 10px">
+        <div style="display: flex">
+          <div style="width: 70%; box-sizing: border-box; padding-right: 10px">
+            <h3>template</h3>
+            <textarea
+                name="template"
+                style="box-sizing: border-box; width: 100%; height: 400px; padding: 4px">{{ template }}</textarea>
+          </div>
+          <div style="width: 30%; box-sizing: border-box">
+            <h3>args</h3>
+            <table>
+              <tbody>
+              {% for k, v in args.items() %}
+              <tr>
+                <th>{{ k }}</th>
+                <td><input
+                    name="args.{{ k }}"
+                    type="text"
+                    value="{{ v if v else '' }}"
+                    style="box-sizing: border-box; width: 100%"></td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div style="width: 50vw; padding-left: 10px">
+        <h3>output
+          <button id="copy" type="button">copy</button>
+        </h3>
+        <textarea
+            id="output"
+            style="box-sizing: border-box; width: 100%; padding: 4px">{{output}}</textarea>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  var $copyButton = document.getElementById("copy")
+  if ($copyButton) {
+    $copyButton.addEventListener("click", function (e) {
+      console.log(e);
+      document.getElementById("output").select();
+      document.execCommand("copy");
+    });
+  }
+
+</script>
+</body>
+
+</html>
